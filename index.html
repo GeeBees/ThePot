@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Title of the document</title>
+    <meta charset="UTF-8">
+    <title>The Pot Game</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
-<h1>Title</h1>
-Timer:
-<br>
-<div id="time">0.0</div>
-<input type="button" value="Start/Stop [S]" onclick="startStopTimer()">
-<input type="button" value="Start/Stop [R]" onclick="resetTimer()">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">The Pot</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#rules">The Rules</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="starter-template">
+            <h1>The Pot</h1>
+            <p class="lead">Describe, mimic, guess.</p>
+
+
+            <p class="lead">Timer:</p>
+            <p class="lead" id="time">0.0</p>
+            <input type="button" value="Start/Stop [S]" onclick="startStopTimer()" class="btn btn-lg btn-success">
+            <input type="button" value="Start/Stop [R]" onclick="resetTimer()" class="btn btn-lg btn-primary">
+        </div>
+
+    </div>
+    <!-- /.container -->
+
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="js/pot.js"></script>
 
 </html>
