@@ -43,10 +43,10 @@ function resetTimer() {
 }
 
 $(document).keypress(function(event) {
-    console.log(event.keyCode);
-    if (event.keyCode == 115) {
+    //console.log(event.charCode);
+    if (event.charCode == 115) {
         startStopTimer();
-    } else if (event.keyCode == 114) {
+    } else if (event.charCode == 114) {
         resetTimer();
     }
 });
