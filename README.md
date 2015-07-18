@@ -1,2 +1,4 @@
 # ThePot
-The Pot Game
+The Pot Game.
+
+This game is popular in Chile?
