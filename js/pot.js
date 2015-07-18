@@ -41,3 +41,13 @@ function resetTimer() {
   seconds = 0;
   $('#time').text(seconds + '.' + millisec);
 }
+
+$( document ).keypress(function( event ) {
+	console.log(event.keyCode);
+	if (event.keyCode == 115) {
+		startStopTimer();
+	}
+	else if(event.keyCode == 114) {
+		resetTimer();
+	}
+});
