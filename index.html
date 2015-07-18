@@ -6,12 +6,15 @@
 </head>
 
 <body>
-Content of the document......
+<h1>Title</h1>
+Timer:
+<br>
+<div id="time">0.0</div>
+<input type="button" value="Start/Stop" onclick="startStopTimer()">
+<input type="reset" onclick="resetTimer()">
 </body>
 
-<script>
-	for(var i=1; i<=3; i++) {
-		alert("Rabbit "+i+" out of the hat!")
-	}
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/pot.js"></script>
+
 </html>
