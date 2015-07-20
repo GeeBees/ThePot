@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Akinator 2.0</title>
+</head>
+
+<body>
+    Write something (I won't look):
+    <input type="text" id="input"></input>
+    <a href="get.html" id="myLink">Do magic please!</a>
+</body>
+
+<script>
+    // Wait for the page to load first
+    window.onload = function() {
+
+        //Get a reference to the link on the page
+        // with an id of "myLink"
+        var a = document.getElementById("myLink");
+
+        //Set code to run when the link is clicked
+        // by assigning a function to "onclick"
+        a.onclick = function() {
+
+            var v = document.getElementById("input").value;
+            // Storing the data:
+            localStorage.setItem("myPreciousVariable", v);
+
+            //If you don't want the link to actually
+            // redirect the browser to another page,
+            // "google.com" in our example here, then
+            // return false at the end of this block.
+            // Note that this also prevents event bubbling,
+            // which is probably what we want here, but won't
+            // always be the case.
+            return true;
+        }
+    }
+</script>
+
+</html>
