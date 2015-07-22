@@ -54,14 +54,7 @@
             <a class="btn btn-lg btn-success" href=groupDefinition.html role="button">Back</a>
         </div>
         <hr>
-        <p style="color:gray">
-            <span id="spanG1"></span> (
-            <span id="spanG1M"></span>) -
-            <span id="spanG2"></span> (
-            <span id="spanG2M"></span>) - Words per Member:
-            <span id="spanWPM"></span>
-            - Time per Turn [s]:
-            <span id="spanTPT"></span>
+        <p style="color:gray" id="game-parameters">
         </p>
     </div>
 
@@ -70,7 +63,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="../js/wordFormGenerator.js"></script>
+    <script type="text/javascript" src="../js/formGenerator.js"></script>
 
     <!-- Get variable script -->
     <script>
@@ -83,12 +76,12 @@
         var timePerTurn = localStorage.getItem("timePerTurn");
 
         $('#form').append(generateWordForm(wordsPerMember));
-        document.getElementById("spanG1").innerHTML = group1Name;
-        document.getElementById("spanG2").innerHTML = group2Name;
-        document.getElementById("spanG1M").innerHTML = group1Members;
-        document.getElementById("spanG2M").innerHTML = group2Members;
-        document.getElementById("spanWPM").innerHTML = wordsPerMember;
-        document.getElementById("spanTPT").innerHTML = timePerTurn;
+        $('#game-parameters')
+            .html(
+                group1Name + ' (' + group1Members + ')' + ' - '
+              + group2Name + ' (' + group2Members + ')' + ' - '
+              + 'Words per Member: ' + wordsPerMember + ' - '
+              + 'Time per Turn [s]: ' + timePerTurn);
     </script>
 
 </body>

@@ -35,10 +35,10 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    
+
     <div class="container">
         <div class="page-header">
-            <h1>Group Definition</h1> 
+            <h1>Group Definition</h1>
         </div>
         <h2>Group 1</h2>
         <form class="form-inline">
@@ -72,11 +72,13 @@
         <label class="radio-inline">
             <input type="radio" name="group1Members" id="g1members9" value="9"> 9
         </label>
-        
+        <form class="form-inline" id="group1-name-form">
+        </form>
+
         <h2>Group 2</h2>
         <form class="form-inline">
             <div class="form-group">
-                <label for="group1name">Name:</label>
+                <label for="group2name">Name:</label>
                 <input type="text" class="form-control" id="group2Name" value="Group 2">
             </div>
         </form>
@@ -105,6 +107,8 @@
         <label class="radio-inline">
             <input type="radio" name="group2Members" id="g2members9" value="9"> 9
         </label>
+        <form class="form-inline" id="group2-name-form">
+        </form>
     </div>
 
     <div class="container">
@@ -122,45 +126,51 @@
             </div>
         </form>
     </div>
-    
-   <div class="container">
+
+    <div class="container">
 
         <div class="starter-template">
             <a class="btn btn-lg btn-primary" href=wordChoosing.html id="wordChoosing" role="button">Next</a>
             <a class="btn btn-lg btn-success" href=title.html role="button">Back</a>
         </div>
     </div>
-    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/formGenerator.js"></script>
+
     <!-- Set variables script -->
     <script>
+        $('input[name=group1Members]').on('change', function() {
+            $('#group1-name-form')
+                .empty()
+                .append(generateNameForm($('input[name=group1Members]:checked').val()));
+        });
+        $('input[name=group2Members]').on('change', function() {
+            $('#group2-name-form')
+                .empty()
+                .append(generateNameForm($('input[name=group2Members]:checked').val()));
+        });
+
+        $('input[name=group1Members]').trigger('change');
+        $('input[name=group2Members]').trigger('change');
         // Wait for the page to load first
         window.onload = function() {
             //Get a reference to the link on the page
             // with an id of "myLink"
-            var a = document.getElementById("wordChoosing");
+            var a = document.getElementById("wordChoosing"); // TODO: Consider using jquery for this
             //Set code to run when the link is clicked
             // by assigning a function to "onclick"
             a.onclick = function() {
-                var group1Name = document.getElementById("group1Name").value;
-                var group2Name = document.getElementById("group2Name").value;
-                var radiosG1 = document.getElementsByName('group1Members');
-                var radiosG2 = document.getElementsByName('group2Members');
-                var group1Members;
-                var group2Members;
-                for (var i = 0, length = radiosG1.length; i < length; i++) {
-                    if (radiosG1[i].checked) {
-                        group1Members = radiosG1[i].value;
-                        break;
-                    }
-                }
-                for (var i = 0, length = radiosG2.length; i < length; i++) {
-                    if (radiosG2[i].checked) {
-                        group2Members = radiosG2[i].value;
-                        break;
-                    }
-                }
-                var wordsPerMember = document.getElementById("wordsPerMemberInput").value;
-                var timePerTurn = document.getElementById("timePerTurnInput").value;
+                var group1Name = $('#group1Name').val();
+                var group2Name = $('#group2Name').val();
+                var group1Members = $('input[name=group1Members]:checked').val();
+                var group2Members = $('input[name=group2Members]:checked').val();
+                var wordsPerMember = $('#wordsPerMemberInput').val();
+                var timePerTurn = $('#timePerTurnInput').val();
                 // Storing the data:
                 localStorage.setItem("g1Name", group1Name);
                 localStorage.setItem("g2Name", group2Name);
@@ -172,11 +182,6 @@
             }
         }
     </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </body>
 
