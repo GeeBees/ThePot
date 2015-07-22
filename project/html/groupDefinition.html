@@ -44,66 +44,66 @@
         <form class="form-inline">
             <div class="form-group">
                 <label for="group1name">Name:</label>
-                <input type="text" class="form-control" id="group1Name" placeholder="Group 1">
+                <input type="text" class="form-control" id="group1Name" value="Group 1">
             </div>
         </form>
         <label for="group1-members">Number of members:</label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members2" value="members2" checked> 2
+            <input type="radio" name="group1Members" id="g1members2" value="2" checked> 2
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members3" value="members3"> 3
+            <input type="radio" name="group1Members" id="g1members3" value="3"> 3
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members4" value="members4"> 4
+            <input type="radio" name="group1Members" id="g1members4" value="4"> 4
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members5" value="members5"> 5
+            <input type="radio" name="group1Members" id="g1members5" value="5"> 5
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members6" value="members6"> 6
+            <input type="radio" name="group1Members" id="g1members6" value="6"> 6
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members7" value="members7"> 7
+            <input type="radio" name="group1Members" id="g1members7" value="7"> 7
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members8" value="members8"> 8
+            <input type="radio" name="group1Members" id="g1members8" value="8"> 8
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group1-members" id="g1members9" value="members9"> 9
+            <input type="radio" name="group1Members" id="g1members9" value="9"> 9
         </label>
-    
+        
         <h2>Group 2</h2>
         <form class="form-inline">
             <div class="form-group">
                 <label for="group1name">Name:</label>
-                <input type="text" class="form-control" id="group2Name" placeholder="Group 2">
+                <input type="text" class="form-control" id="group2Name" value="Group 2">
             </div>
         </form>
         <label for="group2-members">Number of members:</label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members2" value="members2" checked> 2
+            <input type="radio" name="group2Members" id="g2members2" value="2" checked> 2
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members3" value="members3"> 3
+            <input type="radio" name="group2Members" id="g2members3" value="3"> 3
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members4" value="members4"> 4
+            <input type="radio" name="group2Members" id="g2members4" value="4"> 4
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members5" value="members5"> 5
+            <input type="radio" name="group2Members" id="g2members5" value="5"> 5
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members6" value="members6"> 6
+            <input type="radio" name="group2Members" id="g2members6" value="6"> 6
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members7" value="members7"> 7
+            <input type="radio" name="group2Members" id="g2members7" value="7"> 7
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members8" value="members8"> 8
+            <input type="radio" name="group2Members" id="g2members8" value="8"> 8
         </label>
         <label class="radio-inline">
-            <input type="radio" name="group2-members" id="g2members9" value="members9"> 9
+            <input type="radio" name="group2Members" id="g2members9" value="9"> 9
         </label>
     </div>
 
@@ -111,14 +111,14 @@
         <hr>
         <form class="form-inline">
             <div class="form-group">
-                <label for="wordsPerMemeber">Words per Member:</label>
-                <input type="text" class="form-control" id="wordsPerMember" placeholder="10">
+                <label for="wordsPerMember">Words per Member:</label>
+                <input type="text" class="form-control" id="wordsPerMemberInput" value="10">
             </div>
         </form>
         <form class="form-inline">
             <div class="form-group">
                 <label for="timePerTurn">Time per Turn [s]:</label>
-                <input type="text" class="form-control" id="timePerTurn" placeholder="30">
+                <input type="text" class="form-control" id="timePerTurnInput" value="30">
             </div>
         </form>
     </div>
@@ -126,10 +126,52 @@
    <div class="container">
 
         <div class="starter-template">
-            <a class="btn btn-lg btn-primary" href=wordChoosing.html role="button">Next</a>
+            <a class="btn btn-lg btn-primary" href=wordChoosing.html id="wordChoosing" role="button">Next</a>
             <a class="btn btn-lg btn-success" href=title.html role="button">Back</a>
         </div>
     </div>
+    
+    <!-- Set variables script -->
+    <script>
+        // Wait for the page to load first
+        window.onload = function() {
+            //Get a reference to the link on the page
+            // with an id of "myLink"
+            var a = document.getElementById("wordChoosing");
+            //Set code to run when the link is clicked
+            // by assigning a function to "onclick"
+            a.onclick = function() {
+                var group1Name = document.getElementById("group1Name").value;
+                var group2Name = document.getElementById("group2Name").value;
+                var radiosG1 = document.getElementsByName('group1Members');
+                var radiosG2 = document.getElementsByName('group2Members');
+                var group1Members;
+                var group2Members;
+                for (var i = 0, length = radiosG1.length; i < length; i++) {
+                    if (radiosG1[i].checked) {
+                        group1Members = radiosG1[i].value;
+                        break;
+                    }
+                }
+                for (var i = 0, length = radiosG2.length; i < length; i++) {
+                    if (radiosG2[i].checked) {
+                        group2Members = radiosG2[i].value;
+                        break;
+                    }
+                }
+                var wordsPerMember = document.getElementById("wordsPerMemberInput").value;
+                var timePerTurn = document.getElementById("timePerTurnInput").value;
+                // Storing the data:
+                localStorage.setItem("g1Name", group1Name);
+                localStorage.setItem("g2Name", group2Name);
+                localStorage.setItem("g1Members", group1Members);
+                localStorage.setItem("g2Members", group2Members);
+                localStorage.setItem("wordsPerMember", wordsPerMember);
+                localStorage.setItem("timePerTurn", timePerTurn);
+                return true;
+            }
+        }
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
