@@ -36,48 +36,53 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    
+
     <div class="container">
         <div class="page-header">
-            <h1>Word Choosing</h1> 
+            <h1>Word Choosing</h1>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="starter-template">
             <p>
-                Group 1, Member 1, Word 1:
-            </p>        
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="group1Name" placeholder="">
-                </div>
+                Group 1, Member 1:
+            </p>
+            <form class="form-inline" id="form">
             </form>
             <a class="btn btn-lg btn-primary" href=index.html role="button">Next</a>
             <a class="btn btn-lg btn-success" href=groupDefinition.html role="button">Back</a>
         </div>
         <hr>
         <p style="color:gray">
-            <span id="spanG1"></span> (<span id="spanG1M"></span>)
-            -
-            <span id="spanG2"></span> (<span id="spanG2M"></span>)
-            -
-            Words per Member: <span id="spanWPM"></span>
-            -
-            Time per Turn [s]: <span id="spanTPT"></span>
+            <span id="spanG1"></span> (
+            <span id="spanG1M"></span>) -
+            <span id="spanG2"></span> (
+            <span id="spanG2M"></span>) - Words per Member:
+            <span id="spanWPM"></span>
+            - Time per Turn [s]:
+            <span id="spanTPT"></span>
         </p>
     </div>
-    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/wordFormGenerator.js"></script>
+
     <!-- Get variable script -->
     <script>
         // Receiving the data:
         var group1Name = localStorage.getItem("g1Name");
-        var group2Name = localStorage.getItem("g2Name");     
-        var group1Members = localStorage.getItem("g1Members");  
-        var group2Members = localStorage.getItem("g2Members");   
-        var wordsPerMember = localStorage.getItem("wordsPerMember"); 
+        var group2Name = localStorage.getItem("g2Name");
+        var group1Members = localStorage.getItem("g1Members");
+        var group2Members = localStorage.getItem("g2Members");
+        var wordsPerMember = localStorage.getItem("wordsPerMember");
         var timePerTurn = localStorage.getItem("timePerTurn");
-        
+
+        $('#form').append(generateWordForm(wordsPerMember));
         document.getElementById("spanG1").innerHTML = group1Name;
         document.getElementById("spanG2").innerHTML = group2Name;
         document.getElementById("spanG1M").innerHTML = group1Members;
@@ -85,11 +90,6 @@
         document.getElementById("spanWPM").innerHTML = wordsPerMember;
         document.getElementById("spanTPT").innerHTML = timePerTurn;
     </script>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </body>
 
