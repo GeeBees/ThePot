@@ -23,7 +23,8 @@ function generateNameForm(n) {
       var tmpl = $('<input>')
           .addClass('form-control')
           .attr('type', 'text')
-          .attr('id', 'group1Member' + i + 'Name' );
+          .attr('id', 'group1Member' + i + 'Name' )
+          .attr('value', 'Member ' + i);
       formHolder
           .append($('<label>').html('Member ' + i + ' name:'))
           .append(tmpl)
