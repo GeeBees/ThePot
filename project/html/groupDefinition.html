@@ -158,13 +158,8 @@
         $('input[name=group1Members]').trigger('change');
         $('input[name=group2Members]').trigger('change');
         // Wait for the page to load first
-        window.onload = function() {
-            //Get a reference to the link on the page
-            // with an id of "myLink"
-            var a = document.getElementById("wordChoosing"); // TODO: Consider using jquery for this
-            //Set code to run when the link is clicked
-            // by assigning a function to "onclick"
-            a.onclick = function() {
+        $(function() {
+            $('#wordChoosing').on('click', function() {
                 var group1Name = $('#group1Name').val();
                 var group2Name = $('#group2Name').val();
                 var group1Members = $('input[name=group1Members]:checked').val();
@@ -178,9 +173,8 @@
                 localStorage.setItem("g2Members", group2Members);
                 localStorage.setItem("wordsPerMember", wordsPerMember);
                 localStorage.setItem("timePerTurn", timePerTurn);
-                return true;
-            }
-        }
+            })
+        })
     </script>
 
 </body>
