@@ -15,7 +15,7 @@ function generateForm(n, tmpl) {
     return holder;
 }
 
-function generateNameForm(n) {
+function generateNameForm(groupNumber, n) {
     var tmpl = function(i) {
         return function() {
             return {
@@ -24,7 +24,7 @@ function generateNameForm(n) {
                 'input': $('<input>')
                     .addClass('form-control')
                     .attr('type', 'text')
-                    .attr('id', 'group1Member' + i + 'Name')
+                    .attr('id', 'group' + groupNumber + 'Member' + i + 'Name')
                     .attr('value', 'Member ' + i),
                 'br': $('<br>')
             };

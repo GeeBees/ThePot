@@ -147,14 +147,16 @@
         $('input[name=group1Members]').on('change', function() {
             $('#group1-name-form')
                 .empty()
-                .append(generateNameForm($('input[name=group1Members]:checked').val()));
+                .append(generateNameForm(1, $('input[name=group1Members]:checked').val()));
         });
         $('input[name=group2Members]').on('change', function() {
             $('#group2-name-form')
                 .empty()
-                .append(generateNameForm($('input[name=group2Members]:checked').val()));
+                .append(generateNameForm(2, $('input[name=group2Members]:checked').val()));
         });
 
+        // TODO: If I put a name, then change the number of members, the name
+        // resets to default. Not the best behavior. 
         $('input[name=group1Members]').trigger('change');
         $('input[name=group2Members]').trigger('change');
         // Wait for the page to load first
@@ -164,6 +166,16 @@
                 var group2Name = $('#group2Name').val();
                 var group1Members = $('input[name=group1Members]:checked').val();
                 var group2Members = $('input[name=group2Members]:checked').val();
+                var group1Names = {};
+                $.each($("[id^=group1Member]"), function(k,v) {
+                    group1Names[k] = $(v).val();
+                });
+                var group1Names = JSON.stringify(group1Names);
+                var group2Names = {};
+                $.each($("[id^=group2Member]"), function(k,v) {
+                    group2Names[k] = $(v).val();
+                });
+                var group2Names = JSON.stringify(group2Names);
                 var wordsPerMember = $('#wordsPerMemberInput').val();
                 var timePerTurn = $('#timePerTurnInput').val();
                 // Storing the data:
@@ -171,10 +183,13 @@
                 localStorage.setItem("g2Name", group2Name);
                 localStorage.setItem("g1Members", group1Members);
                 localStorage.setItem("g2Members", group2Members);
+                localStorage.setItem("g1Names", group1Names);
+                localStorage.setItem("g2Names", group2Names);
                 localStorage.setItem("wordsPerMember", wordsPerMember);
                 localStorage.setItem("timePerTurn", timePerTurn);
             })
-        })
+        });
+
     </script>
 
 </body>
