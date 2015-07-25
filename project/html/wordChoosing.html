@@ -45,13 +45,12 @@
 
     <div class="container">
         <div class="starter-template">
-            <p>
-                Group 1, Member 1:
+            <p id="member-display">
             </p>
             <form class="form-inline" id="form">
             </form>
             <a class="btn btn-lg btn-success" href=groupDefinition.html role="button">Back</a>
-            <a class="btn btn-lg btn-primary" href=index.html role="button">Next</a>
+            <a class="btn btn-lg btn-primary" href=wordChoosing.html id="next" role="button">Next</a>
         </div>
         <hr>
         <p style="color:gray" id="game-parameters">
@@ -76,6 +75,9 @@
         var group2Names = JSON.parse(localStorage.getItem("g2Names"));
         var wordsPerMember = localStorage.getItem("wordsPerMember");
         var timePerTurn = localStorage.getItem("timePerTurn");
+        var groups = JSON.parse(localStorage.getItem("groupsArray"));
+        var currentMember = localStorage.getItem("currentMember");
+        var currentGroup = localStorage.getItem("currentGroup");
         // join can only be d
         var group1NamesArray = $.map(group1Names, function(value, index) {
             return [value];
@@ -95,6 +97,24 @@
             .append($('<br>'))
             .append(
                 group2Name + ' (' + group2Members + '): ' + group2NamesArray.join(', ') + '.');
+        $('#member-display')
+            .append(groups[parseInt(currentGroup)].groupName + ", " + groups[parseInt(currentGroup)].members[parseInt(currentMember)]);
+            
+        // press "next" function    
+        $(function() {
+            $('#next').on('click', function() {
+                currentMember = parseInt(currentMember) + 1;
+                if(currentMember >= parseInt(groups[currentGroup].numberMembers)){
+                    currentMember = 0;    
+                    currentGroup = parseInt(currentGroup) + 1;
+                    if(currentGroup >= 2){
+                        document.getElementById("next").href="index.html"; 
+                    }
+                }
+                localStorage.setItem("currentMember", currentMember);
+                localStorage.setItem("currentGroup", currentGroup);
+            })
+        }); 
     </script>
 
 </body>

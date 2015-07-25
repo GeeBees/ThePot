@@ -170,14 +170,24 @@
                 $.each($("[id^=group1Member]"), function(k,v) {
                     group1Names[k] = $(v).val();
                 });
-                var group1Names = JSON.stringify(group1Names);
                 var group2Names = {};
                 $.each($("[id^=group2Member]"), function(k,v) {
                     group2Names[k] = $(v).val();
                 });
-                var group2Names = JSON.stringify(group2Names);
                 var wordsPerMember = $('#wordsPerMemberInput').val();
                 var timePerTurn = $('#timePerTurnInput').val();
+                // group array
+                var groups = [ {"groupName" : group1Name,
+                                "numberMembers" : group1Members,
+                                "members" : group1Names },
+                               {"groupName" : group2Name,
+                                "numberMembers" : group2Members,
+                                "members" : group2Names } ];
+                var group1Names = JSON.stringify(group1Names);
+                var group2Names = JSON.stringify(group2Names);
+                var groups = JSON.stringify(groups);
+                var currentMember = 0;
+                var currentGroup = 0;
                 // Storing the data:
                 localStorage.setItem("g1Name", group1Name);
                 localStorage.setItem("g2Name", group2Name);
@@ -187,9 +197,11 @@
                 localStorage.setItem("g2Names", group2Names);
                 localStorage.setItem("wordsPerMember", wordsPerMember);
                 localStorage.setItem("timePerTurn", timePerTurn);
+                localStorage.setItem("groupsArray", groups);
+                localStorage.setItem("currentMember", currentMember);
+                localStorage.setItem("currentGroup", currentGroup);
             })
         });
-
     </script>
 
 </body>
