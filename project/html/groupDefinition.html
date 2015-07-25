@@ -129,7 +129,7 @@
 
     <div class="container">
 
-        <div class="starter-template">            
+        <div class="starter-template">
             <a class="btn btn-lg btn-success" href=title.html role="button">Back</a>
             <a class="btn btn-lg btn-primary" href=wordChoosing.html id="wordChoosing" role="button">Next</a>
         </div>
@@ -156,7 +156,7 @@
         });
 
         // TODO: If I put a name, then change the number of members, the name
-        // resets to default. Not the best behavior. 
+        // resets to default. Not the best behavior.
         $('input[name=group1Members]').trigger('change');
         $('input[name=group2Members]').trigger('change');
         // Wait for the page to load first
@@ -167,39 +167,30 @@
                 var group1Members = $('input[name=group1Members]:checked').val();
                 var group2Members = $('input[name=group2Members]:checked').val();
                 var group1Names = {};
-                $.each($("[id^=group1Member]"), function(k,v) {
+                $.each($('[id^=group1Member]'), function(k,v) {
                     group1Names[k] = $(v).val();
                 });
                 var group2Names = {};
-                $.each($("[id^=group2Member]"), function(k,v) {
+                $.each($('[id^=group2Member]'), function(k,v) {
                     group2Names[k] = $(v).val();
                 });
                 var wordsPerMember = $('#wordsPerMemberInput').val();
                 var timePerTurn = $('#timePerTurnInput').val();
-                // group array
-                var groups = [ {"groupName" : group1Name,
-                                "numberMembers" : group1Members,
-                                "members" : group1Names },
-                               {"groupName" : group2Name,
-                                "numberMembers" : group2Members,
-                                "members" : group2Names } ];
                 var group1Names = JSON.stringify(group1Names);
                 var group2Names = JSON.stringify(group2Names);
-                var groups = JSON.stringify(groups);
                 var currentMember = 0;
                 var currentGroup = 0;
                 // Storing the data:
-                localStorage.setItem("g1Name", group1Name);
-                localStorage.setItem("g2Name", group2Name);
-                localStorage.setItem("g1Members", group1Members);
-                localStorage.setItem("g2Members", group2Members);
-                localStorage.setItem("g1Names", group1Names);
-                localStorage.setItem("g2Names", group2Names);
-                localStorage.setItem("wordsPerMember", wordsPerMember);
-                localStorage.setItem("timePerTurn", timePerTurn);
-                localStorage.setItem("groupsArray", groups);
-                localStorage.setItem("currentMember", currentMember);
-                localStorage.setItem("currentGroup", currentGroup);
+                localStorage.setItem('g1Name', group1Name);
+                localStorage.setItem('g2Name', group2Name);
+                localStorage.setItem('g1Members', group1Members);
+                localStorage.setItem('g2Members', group2Members);
+                localStorage.setItem('g1Names', group1Names);
+                localStorage.setItem('g2Names', group2Names);
+                localStorage.setItem('wordsPerMember', wordsPerMember);
+                localStorage.setItem('timePerTurn', timePerTurn);
+                localStorage.setItem('currentMember', currentMember);
+                localStorage.setItem('currentGroup', currentGroup);
             })
         });
     </script>
