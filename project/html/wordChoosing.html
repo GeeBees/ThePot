@@ -45,23 +45,21 @@
 
     <div class="container">
         <div class="starter-template">
-            <p id="member-display">
-            </p>
-            <form class="form-inline" id="form">
-            </form>
+            <!-- Se despliegan miembros -->
+            <p id="member-display"></p>
+            <!-- Se inserta forma -->
+            <form class="form-inline" id="form"></form>
+            <!-- Botones back y next -->
             <a class="btn btn-lg btn-success" href=groupDefinition.html role="button">Back</a>
             <a class="btn btn-lg btn-primary" href=wordChoosing.html id="next" role="button">Next</a>
         </div>
         <hr>
-        <p style="color:gray" id="game-parameters">
-        </p>
+        <!-- Parametros del juego -->
+        <p style="color:gray" id="game-parameters"></p>
     </div>
-
+    <!-- Se compilan scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="../js/formGenerator.js"></script>
 
     <!-- Get variable script -->
@@ -78,12 +76,15 @@
         var currentMember = parseInt(localStorage.getItem('currentMember'));
         var currentGroup = parseInt(localStorage.getItem('currentGroup'));
         // group array
-        var groups = [ {'groupName' : group1Name,
-                        'numberMembers' : group1Members,
-                        'members' : group1Names },
-                       {'groupName' : group2Name,
-                        'numberMembers' : group2Members,
-                        'members' : group2Names } ];
+        var groups = [{
+            'groupName': group1Name,
+            'numberMembers': group1Members,
+            'members': group1Names
+        }, {
+            'groupName': group2Name,
+            'numberMembers': group2Members,
+            'members': group2Names
+        }];
         var group1NamesArray = $.map(group1Names, function(value, index) {
             return [value];
         });
@@ -94,8 +95,7 @@
         $('#form').append(generateWordForm(wordsPerMember));
         $('#game-parameters')
             .append(
-                'Words per Member: ' + wordsPerMember + ' - '
-              + 'Time per Turn [s]: ' + timePerTurn)
+                'Words per Member: ' + wordsPerMember + ' - ' + 'Time per Turn [s]: ' + timePerTurn)
             .append($('<br>'))
             .append(
                 group1Name + ' (' + group1Members + '): ' + group1NamesArray.join(', ') + '.')
@@ -109,10 +109,10 @@
         $(function() {
             $('#next').on('click', function() {
                 currentMember = currentMember + 1;
-                if(currentMember >= groups[currentGroup].numberMembers){
+                if (currentMember >= groups[currentGroup].numberMembers) {
                     currentMember = 0;
                     currentGroup = currentGroup + 1;
-                    if(currentGroup >= 2){
+                    if (currentGroup >= 2) {
                         $('#next')
                             .attr('href', 'index.html');
                     }

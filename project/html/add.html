@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Pot Game</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">The Pot</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#rules">The Rules</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <h1>Ingresando palabras grupo n</h1>
+
+        <h2 id="nPalabra"></h2>
+
+        <input id="palabra" type="text" value="Poner palabra" onclick="this.value=''">
+
+        <br>
+
+        <button type="text" id="bPalabra" onclick="saveWords()">Ingresar</button>
+
+        <button type="text" id="Atras" onclick="cleanLastWord()">Borrar anterior</button>
+
+        <button type=text id="Fin" onclick="showWords()">Terminar</button>
+
+        <p id="Mostrar"></p>
+
+        <script>
+            var palabras = [];
+            var n = 1;
+
+            document.getElementById('nPalabra').innerHTML = 'Ingrese palabra 1'
+
+            function saveWords() {
+                palabras.push(document.getElementById('palabra').value)
+                n += 1;
+                document.getElementById('nPalabra').innerHTML = 'Ingrese palabra ' + n
+                document.getElementById('palabra').value = 'Poner palabra'
+            }
+
+            function showWords() {
+                document.getElementById('Mostrar').innerHTML = "";
+                document.getElementById('Mostrar').innerHTML = palabras;
+            }
+
+            function cleanLastWord() {
+                palabras.pop();
+                n -= 1;
+                document.getElementById('nPalabra').innerHTML = 'Ingrese palabra ' + n
+                document.getElementById('palabra').value = 'Poner palabra'
+            }
+            
+            // Guardar data
+            localStorage.setItem('palabras', palabras);
+        </script>
+
+    </div>
+
+</body>
+
+</html>
