@@ -159,12 +159,6 @@
                 .append(generateNameForm(2, $('input[name=group2Members]:checked').val()));
         });
 
-        $('input[name=group3Members]').on('change', function() {
-            $('#group3-name-form')
-                .empty()
-                .append(generateNameForm(3, $('input[name=group3Members]:checked').val()));
-        });
-
         // TODO: If I put a name, then change the number of members, the name
         // resets to default. Not the best behavior.
         $('input[name=group1Members]').trigger('change');
