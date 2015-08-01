@@ -70,13 +70,15 @@
         var timePerTurn = localStorage.getItem('timePerTurn');
         var currentMember = parseInt(localStorage.getItem('currentMember'));
         var currentGroup = parseInt(localStorage.getItem('currentGroup'));
-        
+        var wordCounter = parseInt(localStorage.getItem('wordCounter'));
+
         var group1NamesArray = $.map(groups[0].members, function(value, index) {
             return [value];
         });
         var group2NamesArray = $.map(groups[1].members, function(value, index) {
             return [value];
         });
+        console.log("Receiving the data, currentGroup: "+(currentGroup+1)+" currentMember: "+(currentMember+1));
 
         $('#form').append(generateWordForm(wordsPerMember));
         $('#game-parameters')
@@ -95,8 +97,13 @@
         $(function() {
             $('#next').on('click', function() {
                 currentMember = currentMember + 1;
+                $.each($('[id^=group1word]'), function(k, v) {
+                    groups[currentGroup].words[wordCounter] = $(v).val();
+                    wordCounter+=1;
+                });
                 if (currentMember >= groups[currentGroup].numberMembers) {
                     currentMember = 0;
+                    wordCounter=0;
                     currentGroup = currentGroup + 1;
                     if (currentGroup >= 2) {
                         $('#next')
@@ -104,7 +111,10 @@
                     }
                 }
                 localStorage.setItem('currentMember', currentMember);
+                localStorage.setItem('wordCounter', wordCounter);
                 localStorage.setItem('currentGroup', currentGroup);
+                groups=JSON.stringify(groups);
+                localStorage.setItem('groupsArray', groups);
             })
         });
     </script>
