@@ -182,23 +182,27 @@
                 var timePerTurn = $('#timePerTurnInput').val();
                 var currentMember = 0;
                 var currentGroup = 0;
+                var wordCounter=0;
                 // group array
                 var groups = [{
                     'groupName': group1Name,
                     'numberMembers': group1Members,
-                    'members': group1Names
+                    'members': group1Names,
+                    'words':[]
                 }, {
                     'groupName': group2Name,
                     'numberMembers': group2Members,
-                    'members': group2Names
+                    'members': group2Names,
+                    'words':[]
                 }];
                 var groups = JSON.stringify(groups);
                 // Storing the data:
                 localStorage.setItem('groupsArray', groups);
                 localStorage.setItem('wordsPerMember', wordsPerMember);
                 localStorage.setItem('timePerTurn', timePerTurn);
-                localStorage.setItem('currentMember', currentMember); 
+                localStorage.setItem('currentMember', currentMember);
                 localStorage.setItem('currentGroup', currentGroup);
+                localStorage.setItem('wordCounter', wordCounter);
             })
 
         });
