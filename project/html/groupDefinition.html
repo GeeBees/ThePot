@@ -149,18 +149,23 @@
         // Activa las funciones generadoras de formas
 
         $('input[name=group1Members]').on('change', function() {
+            var oldNames = {};
+            $.each($('[id^=group1Member]'), function(k, v) {
+                oldNames[k] = $(v).val();
+            });
             $('#group1-name-form')
                 .empty()
-                .append(generateNameForm(1, $('input[name=group1Members]:checked').val()));
+                .append(generateNameForm(1, $('input[name=group1Members]:checked').val(), oldNames));
         });
         $('input[name=group2Members]').on('change', function() {
+            var oldNames = {};
+            $.each($('[id^=group2Member]'), function(k, v) {
+                oldNames[k] = $(v).val();
+            });
             $('#group2-name-form')
                 .empty()
-                .append(generateNameForm(2, $('input[name=group2Members]:checked').val()));
+                .append(generateNameForm(2, $('input[name=group2Members]:checked').val(), oldNames));
         });
-
-        // TODO: If I put a name, then change the number of members, the name
-        // resets to default. Not the best behavior.
         $('input[name=group1Members]').trigger('change');
         $('input[name=group2Members]').trigger('change');
         // Wait for the page to load first

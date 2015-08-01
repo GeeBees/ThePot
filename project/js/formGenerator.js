@@ -15,8 +15,12 @@ function generateForm(n, tmpl) {
     return holder;
 }
 
-function generateNameForm(groupNumber, n) {
+function generateNameForm(groupNumber, n, oldNames) {
     var tmpl = function(i) {
+        var memberName = 'Member ' + i;
+        if(i <= Object.keys(oldNames).length){
+            memberName = oldNames[i-1];
+        }
         return function() {
             return {
                 'label': $('<label>')
@@ -25,7 +29,7 @@ function generateNameForm(groupNumber, n) {
                     .addClass('form-control')
                     .attr('type', 'text')
                     .attr('id', 'group' + groupNumber + 'Member' + i + 'Name')
-                    .attr('value', 'Member ' + i),
+                    .attr('value', memberName),
                 'br': $('<br>')
             };
         };
