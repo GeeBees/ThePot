@@ -180,11 +180,21 @@
                 });
                 var wordsPerMember = $('#wordsPerMemberInput').val();
                 var timePerTurn = $('#timePerTurnInput').val();
-                var group1Names = JSON.stringify(group1Names);
-                var group2Names = JSON.stringify(group2Names);
                 var currentMember = 0;
                 var currentGroup = 0;
+                // group array
+                var groups = [{
+                    'groupName': group1Name,
+                    'numberMembers': group1Members,
+                    'members': group1Names
+                }, {
+                    'groupName': group2Name,
+                    'numberMembers': group2Members,
+                    'members': group2Names
+                }];
+                var groups = JSON.stringify(groups);
                 // Storing the data:
+                localStorage.setItem('groupsArray', groups);
                 localStorage.setItem('g1Name', group1Name);
                 localStorage.setItem('g2Name', group2Name);
                 localStorage.setItem('g1Members', group1Members);
@@ -193,7 +203,7 @@
                 localStorage.setItem('g2Names', group2Names);
                 localStorage.setItem('wordsPerMember', wordsPerMember);
                 localStorage.setItem('timePerTurn', timePerTurn);
-                localStorage.setItem('currentMember', currentMember);
+                localStorage.setItem('currentMember', currentMember); 
                 localStorage.setItem('currentGroup', currentGroup);
             })
 

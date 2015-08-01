@@ -65,30 +65,16 @@
     <!-- Get variable script -->
     <script>
         // Receiving the data:
-        var group1Name = localStorage.getItem('g1Name');
-        var group2Name = localStorage.getItem('g2Name');
-        var group1Members = localStorage.getItem('g1Members');
-        var group2Members = localStorage.getItem('g2Members');
-        var group1Names = JSON.parse(localStorage.getItem('g1Names'));
-        var group2Names = JSON.parse(localStorage.getItem('g2Names'));
+        var groups = JSON.parse(localStorage.getItem('groupsArray'));
         var wordsPerMember = localStorage.getItem('wordsPerMember');
         var timePerTurn = localStorage.getItem('timePerTurn');
         var currentMember = parseInt(localStorage.getItem('currentMember'));
         var currentGroup = parseInt(localStorage.getItem('currentGroup'));
-        // group array
-        var groups = [{
-            'groupName': group1Name,
-            'numberMembers': group1Members,
-            'members': group1Names
-        }, {
-            'groupName': group2Name,
-            'numberMembers': group2Members,
-            'members': group2Names
-        }];
-        var group1NamesArray = $.map(group1Names, function(value, index) {
+        
+        var group1NamesArray = $.map(groups[0].members, function(value, index) {
             return [value];
         });
-        var group2NamesArray = $.map(group2Names, function(value, index) {
+        var group2NamesArray = $.map(groups[1].members, function(value, index) {
             return [value];
         });
 
@@ -98,10 +84,10 @@
                 'Words per Member: ' + wordsPerMember + ' - ' + 'Time per Turn [s]: ' + timePerTurn)
             .append($('<br>'))
             .append(
-                group1Name + ' (' + group1Members + '): ' + group1NamesArray.join(', ') + '.')
+                groups[0].groupName + ' (' + groups[0].numberMembers + '): ' + group1NamesArray.join(', ') + '.')
             .append($('<br>'))
             .append(
-                group2Name + ' (' + group2Members + '): ' + group2NamesArray.join(', ') + '.');
+                groups[1].groupName + ' (' + groups[1].numberMembers + '): ' + group2NamesArray.join(', ') + '.');
         $('#member-display')
             .append(groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
 
