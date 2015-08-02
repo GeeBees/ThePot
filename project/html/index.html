@@ -40,13 +40,19 @@
 
         <div class="starter-template">
             <h1>The Pot</h1>
-            <p class="lead">Describe, mimic, guess.</p>
-
-
+            <!--/.Insert current GameName -->
+            <p class="lead" id="GameName">Now describe!</p>
+            <br>
+            <!--/.Insert current word -->
+            <h1 id="WordGenerator">WordGeneration!</h1>
+            <br>
+            <br>
             <p class="lead">Timer:</p>
             <p class="lead" id="time">0.0</p>
-            <input type="button" value="Start/Stop [S]" onclick="startStopTimer()" class="btn btn-lg btn-success">
-            <input type="button" value="Reset [R]" onclick="resetTimer()" class="btn btn-lg btn-primary">
+            <input type="button" value="Start/Stop [S]" class="btn btn-lg btn-success" id="startStopButton">
+            <input type="button" value="Reset [R]" class="btn btn-lg btn-primary" id="resetButton">
+            <!--/.Next button: changes currentWord -->
+            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-success" id="nextWordButton">
         </div>
 
     </div>
@@ -63,5 +69,24 @@
 
 <script type="text/javascript">
     var groups = JSON.parse(localStorage.getItem('groupsArray'));
+    $(function() {
+        // Word array "randomization"
+        console.log(groups[2].words);
+        groups[2].words = shuffle(groups[2].words);
+        console.log(groups[2].words);
+
+        $('#startStopButton').on('click', function() {
+            startStopTimer();
+            // TODO: if timer starts, show current word in #WordGenerator
+            // if timer stops, hide current word
+        });
+        $('#resetButton').on('click', function() {
+            resetTimer();
+        });
+        $('#nextWordButton').on('click', function() {
+            // TODO: to show next groups[2].words in  #WordGenerator with each #nextWordButton click
+        });
+    });
 </script>
+
 </html>
