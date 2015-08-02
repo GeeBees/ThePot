@@ -98,12 +98,11 @@
             $('#next').on('click', function() {
                 currentMember = currentMember + 1;
                 $.each($('[id^=group1word]'), function(k, v) {
-                    groups[currentGroup].words[wordCounter] = $(v).val();
+                    groups[2].words[wordCounter] = $(v).val();
                     wordCounter+=1;
                 });
                 if (currentMember >= groups[currentGroup].numberMembers) {
                     currentMember = 0;
-                    wordCounter=0;
                     currentGroup = currentGroup + 1;
                     if (currentGroup >= 2) {
                         $('#next')
