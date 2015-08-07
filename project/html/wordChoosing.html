@@ -83,6 +83,7 @@
             .append(
                 'Words per Member: ' + wordsPerMember + ' - ' + 'Time per Turn [s]: ' + timePerTurn)
             .append($('<br>'))
+            //TODO: Fix this
         for (var i = 0; i < 2; i++) {
             $('#game-parameters')
                 .append(
@@ -95,6 +96,7 @@
 
         // press 'next' function
         $('#next').on('click', function() {
+          //TODO: Fix selector
             $.each($('[id^=group1word]'), function(k, v) {
                 words.addWord($(v).val());
                 $(v).val('');
