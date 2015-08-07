@@ -164,10 +164,8 @@
 
         for (var i = 1; i <= $('.group').length; i++) {
             $('input[name=group' + i + 'Members]').on('change', changeInputs(i))
+            $('input[name=group' + i + 'Members]').trigger('change');
         }
-
-        $('input[name=group1Members]').trigger('change');
-        $('input[name=group2Members]').trigger('change');
 
         $('#wordChoosing').on('click', function() {
             var groups = GroupSet();
