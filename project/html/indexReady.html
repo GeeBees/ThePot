@@ -68,26 +68,31 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!--<script type="text/javascript" src="../js/pot.js"></script>-->
+<script type="text/javascript" src="../js/group.js"></script>
+<script type="text/javascript" src="../js/groupSet.js"></script>
+<script type="text/javascript" src="../js/words.js"></script>
+<script type="text/javascript" src="../js/storage.js"></script>
+
 
 <script type="text/javascript">
     // variable definition
     var currentMember = parseInt(localStorage.getItem('currentMember'));
     var currentGroup = parseInt(localStorage.getItem('currentGroup'));
     var groups = JSON.parse(localStorage.getItem('groupsArray'));
-    var words = JSON.parse(localStorage.getItem('words'));
-    
+    var words = loadWords();
+
     // next group/member logic
     currentGroup = (currentGroup + 1) % groups.length;
-    if (currentGroup == 0){
-        for(var i = 0; i < groups.length; ++i){
+    if (currentGroup == 0) {
+        for (var i = 0; i < groups.length; ++i) {
             groups[i].memberTurn = (groups[i].memberTurn + 1) % groups[i].numberMembers;
-        }  
+        }
     }
     currentMember = groups[currentGroup].memberTurn;
-    
+
     $('#member-turn-display')
-        .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);   
-            
+        .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
+
     $(function() {
         $('#startStopButton').on('click', function() {
             // variable storage

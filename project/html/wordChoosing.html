@@ -51,7 +51,7 @@
             <form class="form-inline" id="form"></form>
             <!-- Botones back y next -->
             <a class="btn btn-lg btn-success" href=groupDefinition.html role="button">Back</a>
-            <a class="btn btn-lg btn-primary" href=wordChoosing.html id="next" role="button">Next</a>
+            <a class="btn btn-lg btn-primary" id="next" role="button">Next</a>
         </div>
         <hr>
         <!-- Parametros del juego -->
@@ -61,65 +61,60 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/formGenerator.js"></script>
+    <script type="text/javascript" src="../js/group.js"></script>
+    <script type="text/javascript" src="../js/groupSet.js"></script>
+    <script type="text/javascript" src="../js/words.js"></script>
+    <script type="text/javascript" src="../js/storage.js"></script>
 
     <!-- Get variable script -->
     <script>
         // Receiving the data:
-        var groups = JSON.parse(localStorage.getItem('groupsArray'));
+        var groups = loadGroups();
         var wordsPerMember = localStorage.getItem('wordsPerMember');
         var timePerTurn = localStorage.getItem('timePerTurn');
-        var currentMember = parseInt(localStorage.getItem('currentMember'));
-        var currentGroup = parseInt(localStorage.getItem('currentGroup'));
-        var wordCounter = parseInt(localStorage.getItem('wordCounter'));
-        var words = JSON.parse(localStorage.getItem('words'));
+        var words = Words();
 
-        var group1NamesArray = $.map(groups[0].members, function(value, index) {
-            return [value];
-        });
-        var group2NamesArray = $.map(groups[1].members, function(value, index) {
-            return [value];
-        });
-        console.log("Receiving the data, currentGroup: "+(currentGroup+1)+" currentMember: "+(currentMember+1));
+        var currentMember = 0;
+        var currentGroup = 0;
+        var wordCounter = 0;
 
         $('#form').append(generateWordForm(wordsPerMember));
         $('#game-parameters')
             .append(
                 'Words per Member: ' + wordsPerMember + ' - ' + 'Time per Turn [s]: ' + timePerTurn)
             .append($('<br>'))
-            .append(
-                groups[0].groupName + ' (' + groups[0].numberMembers + '): ' + group1NamesArray.join(', ') + '.')
-            .append($('<br>'))
-            .append(
-                groups[1].groupName + ' (' + groups[1].numberMembers + '): ' + group2NamesArray.join(', ') + '.');
+        for (var i = 0; i < 2; i++) {
+            $('#game-parameters')
+                .append(
+                    groups.get(i).groupName + ' (' + groups.get(i).length + '): ' + groups.get(i).memberNames.join(', ') + '.')
+                .append($('<br>'))
+        }
+
         $('#member-display')
-            .append(groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
+            .append(groups.get(currentGroup).groupName + ', ' + groups.get(currentGroup).memberNames[currentMember]);
 
         // press 'next' function
-        $(function() {
-            $('#next').on('click', function() {
-                $.each($('[id^=group1word]'), function(k, v) {
-                    words[wordCounter] = $(v).val();
-                    wordCounter += 1;
-                });
-                currentMember = currentMember + 1;
-                if (currentMember >= groups[currentGroup].numberMembers) {
+        $('#next').on('click', function() {
+            $.each($('[id^=group1word]'), function(k, v) {
+                words.addWord($(v).val());
+                $(v).val('');
+            });
+            currentMember = currentMember + 1;
+            if (currentMember >= groups.get(currentGroup).length) {
+                currentMember = 0;
+                currentGroup = currentGroup + 1;
+                if (currentGroup >= groups.length) {
                     currentMember = 0;
-                    currentGroup = currentGroup + 1;
-                    if (currentGroup >= groups.length) {
-                        currentMember = 0;
-                        currentGroup = -1;
-                        $('#next')
-                            .attr('href', 'indexReady.html');
-                    }
+                    currentGroup = -1;
+                    saveWords(words);
+                    $('#next')
+                        .attr('href', 'indexReady.html');
                 }
-                localStorage.setItem('currentMember', currentMember);
-                localStorage.setItem('wordCounter', wordCounter);
-                localStorage.setItem('currentGroup', currentGroup);
-                groups = JSON.stringify(groups);
-                localStorage.setItem('groupsArray', groups);
-                words = JSON.stringify(words);
-                localStorage.setItem('words', words);
-            })
+            }
+            $('#member-display')
+                .empty()
+                .append(groups.get(currentGroup).groupName + ', ' + groups.get(currentGroup).memberNames[currentMember]);
+
         });
     </script>
 

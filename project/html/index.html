@@ -68,26 +68,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="../js/pot.js"></script>
+<script type="text/javascript" src="../js/group.js"></script>
+<script type="text/javascript" src="../js/groupSet.js"></script>
 
 <script type="text/javascript">
     // variable definition
     var currentMember = parseInt(localStorage.getItem('currentMember'));
     var currentGroup = parseInt(localStorage.getItem('currentGroup'));
-    var groups = JSON.parse(localStorage.getItem('groupsArray'));
+    var groups = loadGroups();
     var words = JSON.parse(localStorage.getItem('words'));
-    
+
     $('#member-turn-display')
         .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
-        
+
     $('#WordGenerator')
-        .append('WordGenerator');    
-            
+        .append('WordGenerator');
+
     $(function() {
         // Word array "randomization"
         console.log(words);
         words = shuffle(words);
         console.log(words);
-        
+
         startTimer();
         $('#startStopButton').on('click', function() {
             startStopTimer();
@@ -101,8 +103,8 @@
             // TODO: to show next groups[2].words in  #WordGenerator with each #nextWordButton click
         });
     });
-    
-    $('#time').on('timeout', function(){ 
+
+    $('#time').on('timeout', function(){
         stopTimer();
         resetTimer();
         // variable storage

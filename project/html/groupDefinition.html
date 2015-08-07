@@ -40,7 +40,7 @@
         <div class="page-header">
             <h1>Group Definition</h1>
         </div>
-        <div class="Group1">
+        <div class="group">
             <h2>Group 1</h2>
             <form class="form-inline">
                 <div class="form-group">
@@ -77,7 +77,7 @@
             <form class="form-inline" id="group1-name-form"></form>
         </div>
 
-        <div class="Group2">
+        <div class="group">
             <h2>Group 2</h2>
             <form class="form-inline">
                 <div class="form-group">
@@ -143,79 +143,49 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/formGenerator.js"></script>
+    <script type="text/javascript" src="../js/group.js"></script>
+    <script type="text/javascript" src="../js/groupSet.js"></script>
+    <script type="text/javascript" src="../js/storage.js"></script>
 
     <!-- Set variables script -->
     <script>
-        // Activa las funciones generadoras de formas
+        // Activa las funciones generadoras de FORMULARIOS
+        var changeInputs = function(i) {
+            return function() {
+                var oldNames = {};
+                $.each($('[id^=group' + i + 'Member]'), function(k, v) {
+                    oldNames[k] = $(v).val();
+                });
+                $('#group' + i + '-name-form')
+                    .empty()
+                    .append(generateNameForm(i, $('input[name=group' + i + 'Members]:checked').val(), oldNames));
+            };
+        };
 
-        $('input[name=group1Members]').on('change', function() {
-            var oldNames = {};
-            $.each($('[id^=group1Member]'), function(k, v) {
-                oldNames[k] = $(v).val();
-            });
-            $('#group1-name-form')
-                .empty()
-                .append(generateNameForm(1, $('input[name=group1Members]:checked').val(), oldNames));
-        });
-        $('input[name=group2Members]').on('change', function() {
-            var oldNames = {};
-            $.each($('[id^=group2Member]'), function(k, v) {
-                oldNames[k] = $(v).val();
-            });
-            $('#group2-name-form')
-                .empty()
-                .append(generateNameForm(2, $('input[name=group2Members]:checked').val(), oldNames));
-        });
+        for (var i = 1; i <= $('.group').length; i++) {
+            $('input[name=group' + i + 'Members]').on('change', changeInputs(i))
+        }
+
         $('input[name=group1Members]').trigger('change');
         $('input[name=group2Members]').trigger('change');
-        // Wait for the page to load first
-        $(function() {
-            $('#wordChoosing').on('click', function() {
-                var group1Name = $('#group1Name').val();
-                var group2Name = $('#group2Name').val();
-                var group1Members = $('input[name=group1Members]:checked').val();
-                var group2Members = $('input[name=group2Members]:checked').val();
-                var group1Names = {};
-                $.each($('[id^=group1Member]'), function(k, v) {
-                    group1Names[k] = $(v).val();
-                });
-                var group2Names = {};
-                $.each($('[id^=group2Member]'), function(k, v) {
-                    group2Names[k] = $(v).val();
-                });
-                var wordsPerMember = $('#wordsPerMemberInput').val();
-                var timePerTurn = $('#timePerTurnInput').val();
-                var currentMember = 0;
-                var currentGroup = 0;
-                var wordCounter = 0;
-                var words = [];
-                // group array
-                var groups = [{
-                    'groupName': group1Name,
-                    'numberMembers': group1Members,
-                    'members': group1Names,
-                    'memberTurn' : -1,
 
-                }, {
-                    'groupName': group2Name,
-                    'numberMembers': group2Members,
-                    'members': group2Names,
-                    'memberTurn' : -1,
-                }];
-                var groups = JSON.stringify(groups);
-                var words = JSON.stringify(words);
-                // Storing the data:
-                localStorage.setItem('groupsArray', groups);
-                localStorage.setItem('wordsPerMember', wordsPerMember);
-                localStorage.setItem('timePerTurn', timePerTurn);
-                localStorage.setItem('currentMember', currentMember);
-                localStorage.setItem('currentGroup', currentGroup);
-                localStorage.setItem('wordCounter', wordCounter);
-                localStorage.setItem('words', words);
-            })
+        $('#wordChoosing').on('click', function() {
+            var groups = GroupSet();
+            for (var i = 1; i <= $('.group').length; i++) {
+                var groupName = $('#group' + i + 'Name').val();
+                var memberNames = $.map($('[id^=group' + i + 'Member]'), function(e) {
+                    return $(e).val();
+                });
+                groups.addGroup(Group(groupName, memberNames));
+            }
+            saveGroups(groups)
+            var timePerTurn = $('#timePerTurnInput').val();
+            var wordsPerMember = $('#wordsPerMemberInput').val();
+
+            localStorage.setItem('wordsPerMember', wordsPerMember);
+            localStorage.setItem('timePerTurn', timePerTurn);
 
         });
-
     </script>
 
 </body>
