@@ -46,15 +46,15 @@
             <!--/.Insert current member turn -->
             <p class="lead" id="member-turn-display"></p>
             <!--/.Insert current word -->
-            <h1 id="WordGenerator"></h1>
+            <h1 id="WordGenerator">Ready?</h1>
             <br>
             <br>
             <p class="lead">Timer:</p>
             <p class="lead" id="time">0.0</p>
             <input type="button" value="Start/Stop [S]" class="btn btn-lg btn-success" id="startStopButton">
-            <input type="button" value="Reset [R]" class="btn btn-lg btn-primary" id="resetButton">
+            <input type="button" value="Reset [R]" class="btn btn-lg btn-default" id="resetButton">
             <!--/.Next button: changes currentWord -->
-            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-success" id="nextWordButton">
+            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-default" id="nextWordButton">
         </div>
 
     </div>
@@ -67,7 +67,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="../js/pot.js"></script>
+<!--<script type="text/javascript" src="../js/pot.js"></script>-->
 
 <script type="text/javascript">
     // variable definition
@@ -76,43 +76,35 @@
     var groups = JSON.parse(localStorage.getItem('groupsArray'));
     var words = JSON.parse(localStorage.getItem('words'));
     
+    // next group/member logic
+    currentGroup = (currentGroup + 1) % groups.length;
+    if (currentGroup == 0){
+        for(var i = 0; i < groups.length; ++i){
+            groups[i].memberTurn = (groups[i].memberTurn + 1) % groups[i].numberMembers;
+        }  
+    }
+    currentMember = groups[currentGroup].memberTurn;
+    
     $('#member-turn-display')
-        .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
-        
-    $('#WordGenerator')
-        .append('WordGenerator');    
+        .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);   
             
     $(function() {
-        // Word array "randomization"
-        console.log(words);
-        words = shuffle(words);
-        console.log(words);
-        
-        startTimer();
         $('#startStopButton').on('click', function() {
-            startStopTimer();
-            // TODO: if timer starts, show current word in #WordGenerator
-            // if timer stops, hide current word
+            // variable storage
+            localStorage.setItem('currentMember', currentMember);
+            localStorage.setItem('currentGroup', currentGroup);
+            groups = JSON.stringify(groups);
+            localStorage.setItem('groupsArray', groups);
+            words = JSON.stringify(words);
+            localStorage.setItem('words', words);
+            window.location = "index.html";
         });
         $('#resetButton').on('click', function() {
-            resetTimer();
+            // Does nothing
         });
         $('#nextWordButton').on('click', function() {
-            // TODO: to show next groups[2].words in  #WordGenerator with each #nextWordButton click
+            // Does nothing
         });
-    });
-    
-    $('#time').on('timeout', function(){ 
-        stopTimer();
-        resetTimer();
-        // variable storage
-        localStorage.setItem('currentMember', currentMember);
-        localStorage.setItem('currentGroup', currentGroup);
-        groups = JSON.stringify(groups);
-        localStorage.setItem('groupsArray', groups);
-        words = JSON.stringify(words);
-        localStorage.setItem('words', words);
-        window.location = "indexReady.html";
     });
 </script>
 

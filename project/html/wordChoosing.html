@@ -71,6 +71,7 @@
         var currentMember = parseInt(localStorage.getItem('currentMember'));
         var currentGroup = parseInt(localStorage.getItem('currentGroup'));
         var wordCounter = parseInt(localStorage.getItem('wordCounter'));
+        var words = JSON.parse(localStorage.getItem('words'));
 
         var group1NamesArray = $.map(groups[0].members, function(value, index) {
             return [value];
@@ -96,24 +97,28 @@
         // press 'next' function
         $(function() {
             $('#next').on('click', function() {
-                currentMember = currentMember + 1;
                 $.each($('[id^=group1word]'), function(k, v) {
-                    groups[2].words[wordCounter] = $(v).val();
-                    wordCounter+=1;
+                    words[wordCounter] = $(v).val();
+                    wordCounter += 1;
                 });
+                currentMember = currentMember + 1;
                 if (currentMember >= groups[currentGroup].numberMembers) {
                     currentMember = 0;
                     currentGroup = currentGroup + 1;
-                    if (currentGroup >= 2) {
+                    if (currentGroup >= groups.length) {
+                        currentMember = 0;
+                        currentGroup = -1;
                         $('#next')
-                            .attr('href', 'index.html');
+                            .attr('href', 'indexReady.html');
                     }
                 }
                 localStorage.setItem('currentMember', currentMember);
                 localStorage.setItem('wordCounter', wordCounter);
                 localStorage.setItem('currentGroup', currentGroup);
-                groups=JSON.stringify(groups);
+                groups = JSON.stringify(groups);
                 localStorage.setItem('groupsArray', groups);
+                words = JSON.stringify(words);
+                localStorage.setItem('words', words);
             })
         });
     </script>

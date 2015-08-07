@@ -12,6 +12,9 @@ function display() {
     $('#time').text(seconds + '.' + millisec);
     //fix fullstack error, use literals with care...
     timer = setTimeout('display()', 100);
+    if(seconds == 5){
+        $('#time').trigger('timeout');
+    }
 }
 
 function startTimer() {
