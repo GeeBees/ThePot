@@ -24,6 +24,14 @@ GroupSet = (function($) {
             return self.groupsArray[i];
         }
 
+        // This shouldn't work on IE. Experimental
+        self[Symbol.iterator] = function*() {
+            var i = 0;
+            for (e in groupsArray) {
+                yield groupsArray[e];
+            }
+        }
+
         return self;
     };
 

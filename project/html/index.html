@@ -46,15 +46,15 @@
             <!--/.Insert current member turn -->
             <p class="lead" id="member-turn-display"></p>
             <!--/.Insert current word -->
-            <h1 id="WordGenerator"></h1>
+            <h1 id="WordGenerator">Ready?</h1>
             <br>
             <br>
             <p class="lead">Timer:</p>
             <p class="lead" id="time">0.0</p>
-            <input type="button" value="Start/Stop [S]" class="btn btn-lg btn-success" id="startStopButton">
-            <input type="button" value="Reset [R]" class="btn btn-lg btn-primary" id="resetButton">
+            <input type="button" value="Start!" class="btn btn-lg btn-success" id="startStopButton">
+            <input type="button" value="Reset [R]" class="btn btn-lg btn-disabled" disabled id="resetButton">
             <!--/.Next button: changes currentWord -->
-            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-success" id="nextWordButton">
+            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-disabled" disabled id="nextWordButton">
         </div>
 
     </div>
@@ -70,51 +70,67 @@
 <script type="text/javascript" src="../js/pot.js"></script>
 <script type="text/javascript" src="../js/group.js"></script>
 <script type="text/javascript" src="../js/groupSet.js"></script>
+<script type="text/javascript" src="../js/words.js"></script>
+<script type="text/javascript" src="../js/storage.js"></script>
+
 
 <script type="text/javascript">
     // variable definition
-    var currentMember = parseInt(localStorage.getItem('currentMember'));
-    var currentGroup = parseInt(localStorage.getItem('currentGroup'));
     var groups = loadGroups();
-    var words = JSON.parse(localStorage.getItem('words'));
+    var words = loadWords();
+
+    var currentGroup = 0;
+
+    var memberTurn = [0, 0];
 
     $('#member-turn-display')
-        .append('Turn: ' + groups[currentGroup].groupName + ', ' + groups[currentGroup].members[currentMember]);
+        .append('Turn: ' + groups.get(currentGroup).groupName + ', ' + groups.get(currentGroup).memberNames[memberTurn[currentGroup]]);
 
-    $('#WordGenerator')
-        .append('WordGenerator');
+    var inGame = false
 
-    $(function() {
-        // Word array "randomization"
-        console.log(words);
-        words = shuffle(words);
-        console.log(words);
-
-        startTimer();
-        $('#startStopButton').on('click', function() {
+    $('#startStopButton').on('click', function() {
+        if (!inGame) {
+            $('#startStopButton').val('Start/Stop [S]');
+            $('#resetButton')
+                .removeAttr('disabled')
+                .attr('class', 'btn btn-lg btn-primary');
+            $('#nextWordButton')
+                .removeAttr('disabled')
+                .attr('class', 'btn btn-lg btn-success');
             startStopTimer();
-            // TODO: if timer starts, show current word in #WordGenerator
-            // if timer stops, hide current word
-        });
-        $('#resetButton').on('click', function() {
-            resetTimer();
-        });
-        $('#nextWordButton').on('click', function() {
-            // TODO: to show next groups[2].words in  #WordGenerator with each #nextWordButton click
-        });
+            inGame = true;
+            $('#WordGenerator')
+                .empty()
+                .text('a word');
+        } else {
+            startStopTimer();
+        }
     });
-
-    $('#time').on('timeout', function(){
+    $('#resetButton').on('click', function() {
+        // Does nothing
+    });
+    $('#nextWordButton').on('click', function() {
+        // Does nothing
+    });
+    $('#time').on('timeout', function() {
         stopTimer();
         resetTimer();
-        // variable storage
-        localStorage.setItem('currentMember', currentMember);
-        localStorage.setItem('currentGroup', currentGroup);
-        groups = JSON.stringify(groups);
-        localStorage.setItem('groupsArray', groups);
-        words = JSON.stringify(words);
-        localStorage.setItem('words', words);
-        window.location = "indexReady.html";
+        //Se acabo el turno
+        $('#startStopButton').val('Start!');
+        $('#resetButton')
+            .attr('disabled', '')
+            .attr('class', 'btn btn-lg btn-disabled');
+        $('#nextWordButton')
+            .attr('disabled', '')
+            .attr('class', 'btn btn-lg btn-disabled');
+        memberTurn[currentGroup] = (memberTurn[currentGroup] + 1) % groups.get(currentGroup).length;
+        currentGroup = (currentGroup + 1) % 2;
+        $('#member-turn-display')
+            .empty()
+            .append('Turn: ' + groups.get(currentGroup).groupName + ', ' + groups.get(currentGroup).memberNames[memberTurn[currentGroup]]);
+        inGame = false;
+        $('#WordGenerator')
+            .text('Ready?');
     });
 </script>
 
