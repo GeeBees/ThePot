@@ -140,7 +140,7 @@
             .attr('disabled', '')
             .attr('class', 'btn btn-lg btn-disabled');
         memberTurn[currentGroup] = (memberTurn[currentGroup] + 1) % groups.get(currentGroup).length;
-        currentGroup = (currentGroup + 1) % 2;
+        currentGroup = (currentGroup + 1) % groups.length;
         $('#member-turn-display')
             .empty()
             .append('Turn: ' + groups.get(currentGroup).groupName + ', ' + groups.get(currentGroup).memberNames[memberTurn[currentGroup]]);
