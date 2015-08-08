@@ -56,7 +56,9 @@
             <!--/.Next button: changes currentWord -->
             <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-disabled" disabled id="nextWordButton">
         </div>
-
+        <hr>
+        <!-- Parametros del juego -->
+        <p style="color:gray" id="game-parameters"></p>
     </div>
     <!-- /.container -->
 
@@ -78,6 +80,20 @@
     // variable definition
     var groups = loadGroups();
     var words = loadWords();
+    var wordsPerMember = localStorage.getItem('wordsPerMember');
+    var timePerTurn = localStorage.getItem('timePerTurn');
+
+    $('#game-parameters')
+        .append(
+            'Words per Member: ' + wordsPerMember + ' - ' + 'Time per Turn [s]: ' + timePerTurn)
+        .append($('<br>'))
+        //TODO: Fix this
+    for (var i = 0; i < 2; i++) {
+        $('#game-parameters')
+            .append(
+                groups.get(i).groupName + ' (' + groups.get(i).length + '): ' + groups.get(i).memberNames.join(', ') + '.')
+            .append($('<br>'))
+    }
 
     var currentGroup = 0;
 
