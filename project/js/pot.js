@@ -19,7 +19,7 @@ function display() {
     var percentage = parseFloat(seconds + '.' + millisec) / totalTime * 100;
     $('.progress-bar')
         .attr('style', 'width: ' + percentage + '%')
-        .attr('aria-valuenow', seconds + '.' + millisec);
+        .attr('aria-valuenow', percentage);
 }
 
 function startTimer() {
@@ -48,6 +48,9 @@ function resetTimer() {
     millisec = 0;
     seconds = 0;
     $('#time').text(seconds + '.' + millisec);
+    $('.progress-bar')
+        .attr('style', 'width: 0%')
+        .attr('aria-valuenow', '0');
 }
 
 $(document).keypress(function(event) {
