@@ -12,9 +12,14 @@ function display() {
     $('#time').text(seconds + '.' + millisec);
     //fix fullstack error, use literals with care...
     timer = setTimeout('display()', 100);
-    if(seconds == 5){
+    var totalTime = parseInt(localStorage.getItem('timePerTurn'));
+    if (seconds == totalTime) {
         $('#time').trigger('timeout');
     }
+    var percentage = parseInt(seconds + '.' + millisec) / totalTime * 100;
+    $('.progress-bar')
+        .attr('style', 'width: ' + percentage + '%')
+        .attr('aria-valuenow', seconds + '.' + millisec);
 }
 
 function startTimer() {
