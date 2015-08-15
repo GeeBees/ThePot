@@ -97,7 +97,7 @@
         // press 'next' function
         $('#next').on('click', function() {
           //TODO: Fix selector
-            $.each($('[id^=group1word]'), function(k, v) {
+            $.each($('[id^=groupword]'), function(k, v) {
                 words.addWord($(v).val());
                 $(v).val('');
             });

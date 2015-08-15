@@ -56,12 +56,16 @@ function resetTimer() {
 $(document).keypress(function(event) {
     //console.log(event.charCode);
     if (event.charCode == 115) {
-        startStopTimer();
+        $('[id=startStopButton]').trigger('click');
     } else if (event.charCode == 114) {
-        resetTimer();
+        $('[id=resetButton]').trigger('click');
+    } else if (event.charCode == 32) {
+        // hack: unfocus button if spacebar is pressed
+        if (document.activeElement != document.body) document.activeElement.blur();
+        $('[id=nextWordButton]').trigger('click');
     }
-    //TODO: add "Enter" event
 });
+
 // words randomization
 function shuffle(array) {
     var currentIndex = array.length,

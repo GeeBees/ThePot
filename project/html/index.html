@@ -58,7 +58,7 @@
             <input type="button" value="Start!" class="btn btn-lg btn-success" id="startStopButton">
             <input type="button" value="Reset [R]" class="btn btn-lg btn-disabled" disabled id="resetButton">
             <!--/.Next button: changes currentWord -->
-            <input type="button" name="name" value="Next [Enter]" class="btn btn-lg btn-disabled" disabled id="nextWordButton">
+            <input type="button" name="name" value="Next [Space]" class="btn btn-lg btn-disabled" disabled id="nextWordButton">
         </div>
         <hr>
         <!-- Parametros del juego -->
@@ -129,8 +129,9 @@
     $('#resetButton').on('click', function() {
         resetTimer();
     });
+    // TODO: change word when nextWordButton get pressed
     $('#nextWordButton').on('click', function() {
-        // Does nothing
+        console.log("word change!");
     });
     $('#time').on('timeout', function() {
         stopTimer();

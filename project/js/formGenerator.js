@@ -46,8 +46,7 @@ function generateWordForm(n) {
                 'input': $('<input>')
                     .addClass('form-control')
                     .attr('placeholder', '')
-                    //TODO: change this, independent of group number
-                    .attr('id', 'group1word' + i),
+                    .attr('id', 'groupword' + i),
                 'br': $('<br>')
             };
         };
