@@ -13,7 +13,7 @@ function display() {
     //fix fullstack error, use literals with care...
     timer = setTimeout('display()', 100);
     var totalTime = parseFloat(localStorage.getItem('timePerTurn'));
-    if (seconds == totalTime) {
+    if (seconds >= totalTime) {
         $('#time').trigger('timeout');
     }
     var percentage = parseFloat(seconds + '.' + millisec) / totalTime * 100;

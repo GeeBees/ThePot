@@ -146,6 +146,7 @@
     <script type="text/javascript" src="../js/group.js"></script>
     <script type="text/javascript" src="../js/groupSet.js"></script>
     <script type="text/javascript" src="../js/storage.js"></script>
+    <script type="text/javascript" src="../js/sanityCheck.js"></script>
 
     <!-- Set variables script -->
     <script>
@@ -176,10 +177,20 @@
                 });
                 groups.addGroup(Group(groupName, memberNames));
             }
-            saveGroups(groups)
+            
             var timePerTurn = $('#timePerTurnInput').val();
             var wordsPerMember = $('#wordsPerMemberInput').val();
-
+            
+            // sanity check
+            if (groups.isSane() && checkInteger(timePerTurn) && checkInteger(wordsPerMember)) {
+                $('#wordChoosing').attr('href', 'wordChoosing.html');
+            }
+            else {
+                window.alert('The form contains errors!');
+                $('#wordChoosing').attr('href', '#');
+            }
+            
+            saveGroups(groups);
             localStorage.setItem('wordsPerMember', wordsPerMember);
             localStorage.setItem('timePerTurn', timePerTurn);
 

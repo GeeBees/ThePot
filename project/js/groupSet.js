@@ -23,6 +23,22 @@ GroupSet = (function($) {
         self.get = function(i) {
             return self.groupsArray[i];
         }
+        
+        // sanity check
+        self.isSane = function() {
+            for (i=0; i<self.length; i++) {
+                 var group = self.groupsArray[i];
+                 if (group.groupName == "") {
+                    return false;
+                 }
+                 for (j=0; j<group.length; j++) {
+                    if (group.memberNames[j] == ""){
+                        return false;
+                    }
+                 }
+            }
+            return true;
+        }
 
         // This shouldn't work on IE. Experimental
         self[Symbol.iterator] = function*() {
